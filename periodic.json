@@ -1,0 +1,19 @@
+{
+  "lang": "en",
+  "country": "us",
+  "output_dir": "./output",
+  "apps": [
+    {
+      "package": "com.openai.chatgpt",
+      "mode": "periodic",
+      "frequency": "daily",
+      "ref_offset_days": -1
+    },
+    {
+      "package": "com.openai.chatgpt",
+      "mode": "periodic",
+      "frequency": "weekly",
+      "week_starts_on": "sunday"
+    }
+  ]
+}
