@@ -3,18 +3,42 @@
 This directory provides a local scraper based on gps. 
 It supports interactive single-run scraping, configuration-driven historical backfill, and scheduled periodic jobs. 
 Subdirectories are automatically created by mode/frequency for easier downstream management.
+This project implements an automated pipeline to periodically fetch Google Play reviews, normalize them into a relational schema, and load them into a SQLite database for downstream analysis.
 
 ## Directory Structure
 ```
 googleplay/
-├─ configs/                 # Configuration files (can be duplicated and modified)
-├─ output/                  # (Auto-created) CSV results, containing subfolders: single / schedule / periodic
-├─ scripts/                 # Script entry
-│   ├─ googleplay.py        # Interactive scraper
-│   ├─ run_from_config.py   # Batch scraping by configuration
-│   ├─ run_periodic.py      # Scheduled scraping (daily/weekly/monthly)
-│   └─ logging_utils.py     # Logging utilities
-├─ vendor/gps/              # Local google-play-scraper dependency
+├── README.md                 # Project overview and usage
+├── periodic.json             # Example configuration for scheduled scraping
+├── default.json              # Default scraping configuration
+│
+├── scripts/                  # Scraping and execution scripts
+│   ├── googleplay.py         # Interactive Google Play review scraper
+│   ├── run_from_config.py    # Run scraping jobs from config files
+│   ├── run_periodic.py       # Periodic (daily/weekly) scraping runner
+│   └── logging_utils.py      # Shared logging utilities
+│
+├── output/                   # Auto-generated scraping outputs (CSV)
+│   ├── single/               # One-off scraping results
+│   ├── schedule/             # Scheduled scraping results
+│   └── periodic/             # Periodic scraping results (daily / weekly)
+│
+├── vendor/gps/               # Local google-play-scraper dependency
+│   ├── constants/
+│   ├── features/
+│   ├── utils/
+│   ├── __init__.py
+│   └── exceptions.py
+│
+├── create_tables.sql         # SQL schema definition (apps, reviews tables)
+├── create_db.py              # Initialize SQLite database and schema
+├── load_reviews.py           # Load and normalize CSV data into SQLite
+├── analysis_queries.py       # Example analytical queries on the database
+│
+├── data_overview.ipynb       # Exploratory analysis notebook
+├── merge_weekly_csv.ipynb    # Utility notebook for merging weekly CSVs
+└── __init__.py
+
 ```
 
 ## Interactive Scraping
